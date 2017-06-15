@@ -1,9 +1,10 @@
 import json
 from pprint import pprint
-import os.path
+import os, os.path
 import csv
 
-fileName = 'C:/Users/vadithalad/Desktop/JSONFiles/Q1.json'
+
+fileName = 'C:/Users/dvadithala/Desktop/Pinnion/Q2.json'
 
 
 def stringifyJSON(inputJSON):
@@ -46,9 +47,14 @@ def stringifyJSON(inputJSON):
 print(stringifyJSON(fileName))
 
 
-def convertListToCSV(inputList):
-	with open('C:/Users/vadithalad/Desktop/JSONFiles/BulkUpload_Questions.csv', 'w') as myFile:
-		myWriter = csv.writer(myFile, quoting=csv.QUOTE_ALL)
-		myWriter.writerow(inputList)
+def convertListToCSV():
+	with open('C:/Users/dvadithala/Desktop/Pinnion/Output/BulkUpload_Questions.csv', 'w', newline='') as myFile:
+		for eachFile in os.listdir('C:/Users/dvadithala/Desktop/Pinnion/'):
+			if eachFile.endswith('.json'):
+				inputList = stringifyJSON(eachFile)
+				myWriter = csv.writer(myFile, quoting=csv.QUOTE_ALL, lineterminator='\n')
+				myWriter.writerow(inputList)
 
-convertListToCSV(stringifyJSON(fileName))
+
+
+convertListToCSV()
